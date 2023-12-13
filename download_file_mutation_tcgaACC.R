@@ -28,4 +28,6 @@ maf_tools <- maf %>% read.maf()
 save(maf, file = "maf.RData")
 save(maf_tools, file = "maf_tools.RData")
 
+# ok
+
 ################################# -- end -- ####################################
