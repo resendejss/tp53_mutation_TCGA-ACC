@@ -2,7 +2,7 @@
 ## Name: download_file_mutation_tcgaACC.R                                     ##
 ##                                                                            ##
 ## Author: Jean Resende (jean.s.s.resende@gmail.com)                          ##
-## Date of last update: 12/12/2023                                            ##
+## Date of last update: 12/18/2023                                            ##
 ##                                                                            ##
 ## Description: This script downloads the TCGA-ACC mutations available in the ##
 ##              maf file                                                      ##
@@ -12,6 +12,7 @@
 
 library(TCGAbiolinks)
 library(maftools)
+library(magrittr)
 
 # -- Download MAF files -- 
 query <- GDCquery(
@@ -28,6 +29,6 @@ maf_tools <- maf %>% read.maf()
 save(maf, file = "maf.RData")
 save(maf_tools, file = "maf_tools.RData")
 
-# ok
+# ok -- 
 
 ################################# -- end -- ####################################
