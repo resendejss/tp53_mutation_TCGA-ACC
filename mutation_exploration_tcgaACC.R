@@ -15,6 +15,7 @@ library(maftools)
 load("maf.RData")
 load("maf_tools.RData")
 load("TCGA-ACC.RData")
+load("clinical.RData")
 
 length(unique(maf$Tumor_Sample_Barcode)) # number of samples (90)
 length(unique(maf_tools@clinical.data$Tumor_Sample_Barcode)) # number of samples (90)
@@ -23,6 +24,31 @@ length(sort(table(as.factor(maf$Hugo_Symbol)), decreasing = T)) # number of muta
 length(unique(maf$Hugo_Symbol)) # number of mutated genes (5510)
 
 length(table(as.factor(maf$Hugo_Symbol))[table(as.factor(maf$Hugo_Symbol)) > 1])
+
+# -- mutations
+barcodes_pac_mutations <- unique(substr(maf$Tumor_Sample_Barcode, 1, 12))
+all(barcodes_pac_mutations %in% clinical$submitter_id)
+gender_mutations <- clinical$gender[clinical$submitter_id %in% 
+                                      barcodes_pac_mutations]
+table(gender_mutations)
+
+age_mutations <- clinical$age_at_index[clinical$submitter_id %in% 
+                                         barcodes_pac_mutations]
+mean(age_mutations)
+range(age_mutations)
+  
+
+# -- gene expression
+barcodes_pac_expression <- tcgaProject$patient
+all(barcodes_pac_expression %in% clinical$submitter_id)
+gender_expression <- clinical$gender[clinical$submitter_id %in% 
+                                       barcodes_pac_expression]
+table(gender_expression)
+
+age_expression <- clinical$age_at_index[clinical$submitter_id %in%
+                                          barcodes_pac_expression]
+mean(age_expression)
+range(age_expression)
 
 # -- summary maf files --
 metadata <- getSampleSummary(maf_tools) # types of mutations per sample
