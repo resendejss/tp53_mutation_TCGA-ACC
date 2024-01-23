@@ -10,6 +10,14 @@
 load("maf_tools.RData")
 load("maf.RData")
 load("TCGA-ACC.RData")
+load("clinical.RData")
+
+# -- metadata
+length(tcgaProject$barcode)
+length(clinical$gender)
+length(unique(maf$Tumor_Sample_Barcode))
+length(substr(unique(maf$Tumor_Sample_Barcode), 1, 12))
+
 
 # -- barcodes
 length(unique(maf_tools@clinical.data$Tumor_Sample_Barcode))
