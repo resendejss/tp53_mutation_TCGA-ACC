@@ -69,6 +69,10 @@ qtd_all_samples_mut <- length(unique(maf$Tumor_Sample_Barcode))
 qtd_all_samples_mut - qtd_samples_tp53_mut
 qtd_all_samples_mut - qtd_samples_ctnnb1_mut
 
+table(substr(barcode_tp53_mut, 1,12) %in% substr(tcgaProject$barcode, 1,12))
+table(substr(barcode_ctnnb1_mut, 1,12) %in% substr(tcgaProject$barcode, 1,12)) 
+
+
 # -- samples RNA-Seq --
 qtd_all_samples_rnaseq <- length(tcgaProject$barcode)
 barcode_rnaseq <- tcgaProject$barcode
@@ -76,6 +80,7 @@ barcode_rnaseq <- tcgaProject$barcode
 table(substr(barcode_tp53_mut, 1, 12) %in% substr(barcode_rnaseq, 1, 12))
 table(substr(barcode_ctnnb1_mut, 1, 12) %in% substr(barcode_rnaseq, 1, 12))
 
-
+# -- qtd gene
+length(unique(maf$Hugo_Symbol))
 
 
