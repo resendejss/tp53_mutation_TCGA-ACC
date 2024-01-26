@@ -11,9 +11,10 @@ library(maftools)
 
 load("maf_tools.RData")
 load("clinical.RData")
+load("maf.RData")
 
 Tumor_Sample_Barcode <- unique(maf$Tumor_Sample_Barcode)
-Tumor_Sample_Barcode_clinical <- Tumor_Sample_Barcode[sub]
+#Tumor_Sample_Barcode_clinical <- Tumor_Sample_Barcode[sub]
 
 idx <- match(clinical$submitter_id, substr(Tumor_Sample_Barcode, 1,12))
 idx <- idx[!is.na(idx)]
