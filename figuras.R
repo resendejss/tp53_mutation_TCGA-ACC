@@ -44,7 +44,7 @@ names(col) = c('Frame_Shift_Del','Missense_Mutation', 'Nonsense_Mutation',
 
 oncoplot(maf = acc, colors = col, removeNonMutated = T, top = 10)
 
-# -- Figure 1B
+# -- Figure 1B and 1C
 lollipopPlot(acc, gene = 'TP53', AACol = 'HGVSp')
 lollipopPlot(acc, gene = 'CTNNB1', AACol = 'HGVSp')
 
