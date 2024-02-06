@@ -73,14 +73,25 @@ hist(data$ctnnb1)
 library(ggplot2)
 library(ggpubr)
 
+pdf(file = "fig_mutation_ctnnb1.pdf", width = 7, height = 5)
 ggplot(data, aes(x=tp53_mut_g1, y=log2(tp53), fill=tp53_mut_g1))+
   ggtitle("Mutation - TP53")+
   geom_boxplot(width=0.4, lwd=0.2, outlier.size = 0.5)+
   scale_y_continuous("Expression (log2(TPM))")+
   scale_x_discrete("")+
   scale_fill_manual(values=c("#8dd3c7","#ffffb3"))+
-  geom_jitter(width = 0.1, alpha = 0.2)+
-  stat_compare_means(method="wilcox.test", label="p.format")+
+  #geom_jitter(width = 0.1, alpha = 0.2)+
+  geom_rug(data = data[data$ctnnb1_mut_g2 == "no",],
+           aes(x=NULL),
+           sides = "l",
+           colour = "#bebada")+
+  geom_rug(data = data[data$ctnnb1_mut_g2 == "yes",],
+           aes(x=NULL),
+           sides = "r",
+           colour = "#fb8072")+
+  stat_compare_means(method="wilcox.test",
+                     label="p.format",
+                     label.x = c(1.3))+
   theme(legend.position = "bottom", 
         legend.title = element_text(face="bold", size=10),
         legend.key=element_rect(size=10, color=NA), 
@@ -88,6 +99,8 @@ ggplot(data, aes(x=tp53_mut_g1, y=log2(tp53), fill=tp53_mut_g1))+
         legend.text=element_text(size=10), 
         legend.direction = "horizontal",
         legend.box = "horizontal")
+dev.off()
+
 
 pdf(file = "fig_mutation_ctnnb1.pdf", width = 7, height = 5)
 ggplot(data, aes(x=ctnnb1_mut_g2, y=log2(ctnnb1), fill=ctnnb1_mut_g2))+
@@ -119,4 +132,6 @@ ggplot(data, aes(x=ctnnb1_mut_g2, y=log2(ctnnb1), fill=ctnnb1_mut_g2))+
         axis.title = element_text(size = 12),
         plot.title = element_text(size = 14))
 dev.off()
+
+
 
