@@ -133,6 +133,9 @@ ggplot(data, aes(x=ctnnb1_mut_g2, y=log2(ctnnb1), fill=ctnnb1_mut_g2))+
         plot.title = element_text(size = 14))
 dev.off()
 
+table(data$tp53_mut_g1=="yes")
+table(data$ctnnb1_mut_g2=="yes")
+
 library(ggstatsplot)
 ?ggbetweenstats
 
