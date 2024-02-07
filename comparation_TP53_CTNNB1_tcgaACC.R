@@ -73,22 +73,22 @@ hist(data$ctnnb1)
 library(ggplot2)
 library(ggpubr)
 
-pdf(file = "fig_mutation_ctnnb1.pdf", width = 7, height = 5)
+pdf(file = "fig_mutation_tp53.pdf", width = 7, height = 5)
 ggplot(data, aes(x=tp53_mut_g1, y=log2(tp53), fill=tp53_mut_g1))+
   ggtitle("Mutation - TP53")+
   geom_boxplot(width=0.4, lwd=0.2, outlier.size = 0.5)+
   scale_y_continuous("Expression (log2(TPM))")+
   scale_x_discrete("")+
-  scale_fill_manual(values=c("#8dd3c7","#ffffb3"))+
+  scale_fill_manual(values=c("#377eb8","#e41a1c"))+
   #geom_jitter(width = 0.1, alpha = 0.2)+
   geom_rug(data = data[data$ctnnb1_mut_g2 == "no",],
            aes(x=NULL),
            sides = "l",
-           colour = "#bebada")+
+           colour = "#377eb8")+
   geom_rug(data = data[data$ctnnb1_mut_g2 == "yes",],
            aes(x=NULL),
            sides = "r",
-           colour = "#fb8072")+
+           colour = "#e41a1c")+
   stat_compare_means(method="wilcox.test",
                      label="p.format",
                      label.x = c(1.3))+
@@ -108,16 +108,16 @@ ggplot(data, aes(x=ctnnb1_mut_g2, y=log2(ctnnb1), fill=ctnnb1_mut_g2))+
   geom_boxplot(width=0.4, lwd=0.2, outlier.size = 0.5)+
   scale_y_continuous("Expression (log2(TPM))")+
   scale_x_discrete("")+
-  scale_fill_manual(values=c("#bebada","#fb8072"))+
+  scale_fill_manual(values=c("#4daf4a","#984ea3"))+
   #geom_jitter(width = 0.1, alpha = 0.2)+
   geom_rug(data = data[data$ctnnb1_mut_g2 == "no",],
            aes(x=NULL),
            sides = "l",
-           colour = "#bebada")+
+           colour = "#4daf4a")+
   geom_rug(data = data[data$ctnnb1_mut_g2 == "yes",],
            aes(x=NULL),
            sides = "r",
-           colour = "#fb8072")+
+           colour = "#984ea3")+
   stat_compare_means(method="wilcox.test",
                      label="p.format",
                      label.x = c(1.3))+
@@ -133,5 +133,41 @@ ggplot(data, aes(x=ctnnb1_mut_g2, y=log2(ctnnb1), fill=ctnnb1_mut_g2))+
         plot.title = element_text(size = 14))
 dev.off()
 
+library(ggstatsplot)
+?ggbetweenstats
 
+pdf(file = "fig_stage_tp53_noMut.pdf", width = 7, height = 5)
+ggbetweenstats(
+  data = data[data$tp53_mut_g1 == "no",],
+  x = stage,
+  y = tp53,
+  type = "nonparametric"
+)
+dev.off()
 
+pdf(file = "fig_stage_tp53_yesMut.pdf", width = 7, height = 5)
+ggbetweenstats(
+  data = data[data$tp53_mut_g1 == "yes",],
+  x = stage,
+  y = tp53,
+  type = "nonparametric"
+)
+dev.off()
+
+pdf(file = "fig_stage_ctnnb1_noMut.pdf", width = 7, height = 5)
+ggbetweenstats(
+  data = data[data$ctnnb1_mut_g2 == "no",],
+  x = stage,
+  y = ctnnb1,
+  type = "nonparametric"
+)
+dev.off()
+
+pdf(file = "fig_stage_ctnnb1_yesMut.pdf", width = 7, height = 5)
+ggbetweenstats(
+  data = data[data$ctnnb1_mut_g2 == "yes",],
+  x = stage,
+  y = ctnnb1,
+  type = "nonparametric"
+)
+dev.off()
