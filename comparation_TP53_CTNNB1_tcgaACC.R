@@ -174,3 +174,66 @@ ggbetweenstats(
   type = "nonparametric"
 )
 dev.off()
+
+
+
+
+
+
+
+ggplot(data[data$gender=="female",], aes(x=tp53_mut_g1, y=log2(tp53), fill=tp53_mut_g1))+
+  ggtitle("Mutation - TP53")+
+  geom_boxplot(width=0.4, lwd=0.2, outlier.size = 0.5)+
+  scale_y_continuous("Expression (log2(TPM))")+
+  scale_x_discrete("")+
+  scale_fill_manual(values=c("#377eb8","#e41a1c"))+
+  #geom_jitter(width = 0.1, alpha = 0.2)+
+  geom_rug(data = data[data$gender=="female" & data$tp53_mut_g1 == "no",],
+           aes(x=NULL),
+           sides = "l",
+           colour = "#377eb8")+
+  geom_rug(data = data[data$gender=="female" & data$tp53_mut_g1 == "yes",],
+           aes(x=NULL),
+           sides = "r",
+           colour = "#e41a1c")+
+  stat_compare_means(method="wilcox.test",
+                     label="p.format",
+                     label.x = c(1.3))+
+  theme(legend.position = "bottom", 
+        legend.title = element_text(face="bold", size=10),
+        legend.key=element_rect(size=10, color=NA), 
+        legend.key.size=unit(8,"mm"),
+        legend.text=element_text(size=10), 
+        legend.direction = "horizontal",
+        legend.box = "horizontal")
+
+table(data$tp53_mut_g1[data$gender=="female"])
+
+ggplot(data[data$gender=="male",], aes(x=tp53_mut_g1, y=log2(tp53), fill=tp53_mut_g1))+
+  ggtitle("Mutation - TP53")+
+  geom_boxplot(width=0.4, lwd=0.2, outlier.size = 0.5)+
+  scale_y_continuous("Expression (log2(TPM))")+
+  scale_x_discrete("")+
+  scale_fill_manual(values=c("#377eb8","#e41a1c"))+
+  #geom_jitter(width = 0.1, alpha = 0.2)+
+  geom_rug(data = data[data$gender=="male" & data$tp53_mut_g1 == "no",],
+           aes(x=NULL),
+           sides = "l",
+           colour = "#377eb8")+
+  geom_rug(data = data[data$gender=="male" & data$tp53_mut_g1 == "yes",],
+           aes(x=NULL),
+           sides = "r",
+           colour = "#e41a1c")+
+  stat_compare_means(method="wilcox.test",
+                     label="p.format",
+                     label.x = c(1.3))+
+  theme(legend.position = "bottom", 
+        legend.title = element_text(face="bold", size=10),
+        legend.key=element_rect(size=10, color=NA), 
+        legend.key.size=unit(8,"mm"),
+        legend.text=element_text(size=10), 
+        legend.direction = "horizontal",
+        legend.box = "horizontal")
+
+table(data$tp53_mut_g1[data$gender=="male"])
+
