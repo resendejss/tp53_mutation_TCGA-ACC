@@ -176,11 +176,6 @@ ggbetweenstats(
 dev.off()
 
 
-
-
-
-
-
 ggplot(data[data$gender=="female",], aes(x=tp53_mut_g1, y=log2(tp53), fill=tp53_mut_g1))+
   ggtitle("Mutation - TP53")+
   geom_boxplot(width=0.4, lwd=0.2, outlier.size = 0.5)+
